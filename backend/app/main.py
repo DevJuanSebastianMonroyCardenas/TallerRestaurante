@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
-from app.api.v1 import users, menus, orders, reservations, billing, reports
+from app.api.v1 import users, menus, orders, reservations, billing, reports, categories, menu_items
 
 settings = get_settings()
 
@@ -21,7 +21,8 @@ app.add_middleware(
 )
 
 app.include_router(users.router, prefix=settings.API_V1_PREFIX, tags=["Users"])
-app.include_router(menus.router, prefix=settings.API_V1_PREFIX, tags=["Menus"])
+app.include_router(categories.router, prefix=settings.API_V1_PREFIX, tags=["Categories"])
+app.include_router(menu_items.router, prefix=settings.API_V1_PREFIX, tags=["Menu Items"])
 app.include_router(orders.router, prefix=settings.API_V1_PREFIX, tags=["Orders"])
 app.include_router(reservations.router, prefix=settings.API_V1_PREFIX, tags=["Reservations"])
 app.include_router(billing.router, prefix=settings.API_V1_PREFIX, tags=["Billing"])
