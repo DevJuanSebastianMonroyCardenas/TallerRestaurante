@@ -1,6 +1,6 @@
 # Sistema de Gestión de Restaurante
 
-Sistema académico para gestionar operaciones de restaurante con arquitectura modular profesional.
+Sistema académico REST API con arquitectura modular profesional.
 
 ## Stack Tecnológico
 
@@ -9,9 +9,25 @@ Sistema académico para gestionar operaciones de restaurante con arquitectura mo
 | Backend | FastAPI | API REST con autodocumentación |
 | ORM | SQLAlchemy 2.0 | Mapeo objeto-relacional |
 | Migraciones | Alembic | Control de versiones del esquema |
-| Frontend | React + Vite | Interfaz de usuario |
 | Base de datos | PostgreSQL | Almacenamiento relacional |
 | Validación | Pydantic | Validación de datos automática |
+| Auth | JWT + Bcrypt | Autenticación stateless |
+
+## Módulos Implementados
+
+| Módulo | Endpoints | Descripción |
+|--------|----------|-------------|
+| **Users** | 6 | Auth + CRUD usuarios |
+| **Categories** | 5 | CRUD categorías |
+| **Menu Items** | 5 | CRUD platillos |
+| **Tables** | 5 | CRUD mesas |
+| **Orders** | 7 | Órdenes con estados |
+| **Reservations** | 7 | Reservaciones |
+| **Invoices** | 8 | Facturación |
+| **Payments** | 4 | Pagos |
+| **Reports** | 3 | Reportes de ventas |
+
+**Total: 49 endpoints REST**
 
 ## Estructura del Proyecto
 
@@ -19,33 +35,26 @@ Sistema académico para gestionar operaciones de restaurante con arquitectura mo
 TallerRestaurante/
 ├── backend/
 │   ├── app/
-│   │   ├── api/v1/       # Rutas REST
-│   │   ├── core/         # Configuración central
-│   │   ├── models/       # Modelos SQLAlchemy
-│   │   ├── schemas/      # Schemas Pydantic
-│   │   ├── services/     # Lógica de negocio
-│   │   └── repositories/ # Acceso a datos
+│   │   ├── api/v1/       # 9 routers REST
+│   │   ├── core/         # config, database, security
+│   │   ├── models/       # 5 modelos SQLAlchemy
+│   │   ├── schemas/v1/  # 6 schemas Pydantic
+│   │   ├── services/    # 6 services
+│   │   ├── repositories/# 6 repositories
+│   │   └── main.py       # FastAPI entry point
 │   ├── alembic/          # Migraciones
 │   └── requirements.txt
-├── frontend/             # React + Vite
-└── docs/                 # Documentación técnica
+├── docs/
+│   ├── ARQUITECTURA.md   # Diseño técnico
+│   └── LINEA_BASE.md    # Documentación línea base
+└── README.md
 ```
 
-## Módulos
-
-1. **Users** - Gestión de usuarios y autenticación
-2. **Menus** - Catálogo de platillos y categorías
-3. **Orders** - Órdenes de clientes
-4. **Reservations** - Reservaciones de mesas
-5. **Billing** - Facturación y pagos
-6. **Reports** - Reportes y estadísticas
-
-## Desarrollo Local
+## Inicio Rápido
 
 ### Requisitos
 - Python 3.12+
 - PostgreSQL 15+
-- Node.js 20+
 
 ### Backend
 ```bash
@@ -53,35 +62,99 @@ cd backend
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+
+# Configurar .env
+cp .env.example .env
+# Editar DATABASE_URL con credenciales PostgreSQL
+
+# Crear base de datos
+createdb restaurant_db
+
+# Ejecutar migraciones
+alembic upgrade head
+
+# Iniciar servidor
 uvicorn app.main:app --reload --port 8001
 ```
 
-### Frontend
+### Verificar API
 ```bash
-cd frontend
-npm install
-npm run dev
+# Health check
+curl http://localhost:8001/health
+
+# Documentación Swagger
+open http://localhost:8001/docs
+
+# Documentación ReDoc
+open http://localhost:8001/redoc
 ```
 
-## API Documentation
+## API Endpoints
 
-- Swagger UI: `http://localhost:8001/docs`
-- ReDoc: `http://localhost:8001/redoc`
+### Autenticación
+```
+POST /api/v1/auth/login  - Login con JWT
+```
+
+### Gestión de Usuarios
+```
+GET    /api/v1/users              - Listar usuarios
+GET    /api/v1/users/{id}        - Obtener usuario
+POST   /api/v1/users             - Crear usuario
+PUT    /api/v1/users/{id}        - Actualizar usuario
+DELETE /api/v1/users/{id}        - Eliminar usuario
+```
+
+### Catálogo
+```
+GET    /api/v1/categories         - Listar categorías
+POST   /api/v1/categories         - Crear categoría
+GET    /api/v1/menu-items         - Listar platillos
+POST   /api/v1/menu-items        - Crear platillo
+```
+
+### Mesas y Pedidos
+```
+GET    /api/v1/tables            - Listar mesas
+GET    /api/v1/orders            - Listar pedidos
+POST   /api/v1/orders            - Crear pedido
+PATCH /api/v1/orders/{id}/status - Cambiar estado
+```
+
+### Reservaciones
+```
+GET    /api/v1/reservations      - Listar reservaciones
+POST   /api/v1/reservations      - Crear reservación
+```
+
+### Facturación
+```
+POST   /api/v1/invoices          - Generar factura
+POST   /api/v1/invoices/{id}/pay - Marcar pagada
+POST   /api/v1/payments          - Registrar pago
+```
+
+### Reportes
+```
+GET    /api/v1/reports/sales     - Reporte de ventas
+GET    /api/v1/reports/popular-items - Platillos populares
+```
 
 ## Control de Versiones
 
-- Rama `main`: Producción estable
-- Rama `develop`: Desarrollo activo
-- Tags: `v1.0.0` - Línea base inicial
+### Ramas
+- `main` - Producción estable
+- `develop` - Desarrollo activo
 
-## Commits Convencionales
+### Tags
+- `v1.0.0-base` - Línea base con módulos completos
 
+### Conventional Commits
 - `feat:` Nueva funcionalidad
 - `fix:` Corrección de bugs
 - `docs:` Documentación
 - `refactor:` Refactorización
 - `chore:` Mantenimiento
 
----
-
-**Versión:** 1.0.0 | **Estado:** Línea Base
+## Licencia
+Académica - Propósito educativo

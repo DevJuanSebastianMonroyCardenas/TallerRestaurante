@@ -1,24 +1,95 @@
-# Línea Base - Sistema de Gestión de Restaurante v1.0.0
+# Línea Base - Sistema de Gestión de Restaurante v1.0.0-base
 
 ## Fecha de Creación
 Mayo 2026
 
 ## Objetivo
-Establecer una línea base estable con la estructura modular profesional para el desarrollo del sistema.
+Línea base estable con backend FastAPI modular completo y profesional.
+
+---
+
+## Endpoints API (49 total)
+
+| Módulo | Endpoints | Descripción |
+|--------|----------|-------------|
+| Users | 6 | Auth + CRUD |
+| Categories | 5 | CRUD categorías |
+| Menu Items | 5 | CRUD platillos |
+| Tables | 5 | CRUD mesas |
+| Orders | 7 | CRUD + estados |
+| Reservations | 7 | CRUD + estados |
+| Invoices | 8 | Facturación |
+| Payments | 4 | Pagos |
+| Reports | 3 | Reportes |
+
+---
+
+## Módulos Implementados
+
+### Users
+- JWT Authentication (`/api/v1/auth/login`)
+- User CRUD with Bcrypt password hashing
+- OAuth2PasswordBearer protection
+
+### Categories
+- CRUD operations for menu categories
+- Active/Inactive status management
+
+### Menu Items
+- Full CRUD with category association
+- Price, availability, and image management
+- Filtering by category and availability
+
+### Tables
+- Restaurant table management
+- Capacity and availability tracking
+
+### Orders
+- Order creation with multiple items
+- Status workflow: `pending → confirmed → preparing → ready → delivered`
+- Automatic total calculation from items
+- Cancellation support
+
+### Reservations
+- Customer reservation management
+- Status workflow: `confirmed → seated → completed`
+- Duration and notes tracking
+- Date-based filtering
+
+### Invoices
+- Auto-generation from orders
+- Tax calculation (10% default)
+- Invoice numbering (INV-000001)
+- Status: pending → paid → cancelled
+
+### Payments
+- Multiple payment methods: cash, card, transfer, yape, plin
+- Payment tracking per invoice
+- Reference number support
+
+### Reports
+- Sales report with daily breakdown
+- Popular items report
+- Category sales analysis
 
 ---
 
 ## Artefactos Versionados
 
-### Código Fuente
-| Archivo | Descripción |
-|---------|-------------|
-| `backend/app/main.py` | Punto de entrada FastAPI |
-| `backend/app/core/config.py` | Configuración central |
-| `backend/app/core/database.py` | Conexión PostgreSQL |
-| `backend/app/core/security.py` | Autenticación JWT |
-| `backend/app/models/*.py` | Modelos ORM |
-| `backend/app/api/v1/*.py` | Rutas REST placeholder |
+### Backend Core
+```
+backend/app/
+├── api/v1/              # 9 routers (users, categories, menu_items, tables, orders, reservations, invoices, payments, reports)
+├── core/
+│   ├── config.py       # Settings con Pydantic BaseSettings
+│   ├── database.py     # SQLAlchemy SessionLocal
+│   └── security.py    # JWT + Bcrypt utilities
+├── models/             # 5 modelos ORM (user, menu, order, reservation, billing)
+├── schemas/v1/         # 6 schemas Pydantic (user, menu, order, reservation, billing, reports)
+├── services/           # 6 services (user, menu, order, reservation, billing, reports)
+├── repositories/       # 6 repositories
+└── main.py            # FastAPI app entry point
+```
 
 ### Configuración
 | Archivo | Propósito |
@@ -26,39 +97,21 @@ Establecer una línea base estable con la estructura modular profesional para el
 | `backend/requirements.txt` | Dependencias Python exactas |
 | `backend/alembic.ini` | Configuración migraciones |
 | `backend/.env.example` | Variables de entorno template |
-| `.gitignore` | Exclusiones Git |
-
-### Documentación
-| Archivo | Contenido |
-|---------|----------|
-| `README.md` | Guía rápida del proyecto |
-| `docs/ARQUITECTURA.md` | Diseño técnico detallado |
-| `docs/LINEA_BASE.md` | Este documento |
+| `.gitignore` | Exclusiones profesionales |
 
 ---
 
 ## Artefactos NO Versionados
 
 ```
-❌ .env                    # Secretos reales
-❌ node_modules/           # Dependencias npm
-❌ venv/                   # Entorno virtual Python
-❌ __pycache__/            # Bytecode Python
-❌ .pytest_cache/          # Cache de tests
-❌ *.log                   # Archivos de logs
-❌ dist/                   # Build de producción
+.env                     # Secretos reales
+node_modules/           # Dependencias npm
+venv/                   # Entorno virtual Python
+__pycache__/            # Bytecode Python
+.pytest_cache/          # Cache de tests
+*.log                   # Archivos de logs
+dist/                   # Build de producción
 ```
-
----
-
-## Módulos Implementados (Placeholders)
-
-1. **Users** - API base para gestión de usuarios
-2. **Menus** - API base para catálogo de platillos
-3. **Orders** - API base para órdenes
-4. **Reservations** - API base para reservaciones
-5. **Billing** - API base para facturación
-6. **Reports** - API base para reportes
 
 ---
 
@@ -66,18 +119,72 @@ Establecer una línea base estable con la estructura modular profesional para el
 
 ```
 fastapi==0.111.0
+uvicorn[standard]==0.30.1
 sqlalchemy==2.0.31
-pydantic==2.8.2
+psycopg2-binary==2.9.9
 alembbic==1.13.2
+pydantic==2.8.2
+pydantic-settings==2.3.4
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-dotenv==1.0.1
+email-validator==2.1.1
 ```
 
 ---
 
-## Siguiente Fase
+## Git Estado
 
-**FASE 2:** Implementar autenticación JWT completa y CRUD de usuarios.
+### Ramas
+- `main` - Producción estable (merged)
+- `develop` - Desarrollo activo
+
+### Tags
+- `v1.0.0-base` - Línea base final con todos los módulos
+
+### Commits
+```
+d271ecc fix: register reports router in main app
+6fbfb4a feat: add reports module
+bc5bbfb feat: add billing module
+aec40a8 feat: add reservation management module
+0ee79a4 feat: add order management module
+10699c2 feat: add menu management module
+49c5ff4 feat: add user authentication and CRUD module
+19e87ed chore: initial project structure - v1.0.0 baseline
+```
 
 ---
 
-**Tag:** `v1.0.0`  
-**Rama:** `develop` → `main` (al finalizar FASE 2)
+## Estrategia de Ramas Futuras
+
+```
+main (producción)
+└── develop (desarrollo)
+    ├── feature/auth-enhancements
+    ├── feature/docker-setup
+    ├── feature/frontend-react
+    └── ...
+```
+
+---
+
+## Control de Versiones API
+
+- **Prefix:** `/api/v1`
+- **Futura evolución:** `/api/v2` sin romper compatibilidad
+
+---
+
+## Próximos Pasos Sugeridos
+
+1. **FASE 9:** Configurar PostgreSQL y ejecutar migraciones
+2. **FASE 10:** Setup frontend React + Vite
+3. **FASE 11:** Docker setup
+4. **FASE 12:** Tests unitarios
+
+---
+
+**Tag:** `v1.0.0-base`
+**Rama:** `main`
+**Fecha:** Mayo 2026
