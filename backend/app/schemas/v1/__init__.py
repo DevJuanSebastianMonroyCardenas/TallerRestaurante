@@ -7,6 +7,10 @@ from .order import (
     OrderBase, OrderCreate, OrderUpdate, OrderResponse, OrderWithItems,
     OrderItemBase, OrderItemCreate, OrderItemUpdate, OrderItemResponse,
 )
+from .reservation import (
+    TableBase, TableCreate, TableUpdate, TableResponse,
+    ReservationBase, ReservationCreate, ReservationUpdate, ReservationResponse,
+)
 
 __all__ = [
     "UserBase", "UserCreate", "UserUpdate", "UserResponse", "Token", "LoginRequest",
@@ -14,4 +18,6 @@ __all__ = [
     "MenuItemBase", "MenuItemCreate", "MenuItemUpdate", "MenuItemResponse", "MenuItemWithCategory",
     "OrderBase", "OrderCreate", "OrderUpdate", "OrderResponse", "OrderWithItems",
     "OrderItemBase", "OrderItemCreate", "OrderItemUpdate", "OrderItemResponse",
+    "TableBase", "TableCreate", "TableUpdate", "TableResponse",
+    "ReservationBase", "ReservationCreate", "ReservationUpdate", "ReservationResponse",
 ]
