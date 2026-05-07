@@ -15,6 +15,11 @@ from .billing import (
     InvoiceBase, InvoiceCreate, InvoiceUpdate, InvoiceResponse, InvoiceWithPayments,
     PaymentBase, PaymentCreate, PaymentResponse,
 )
+from .reports import (
+    SalesReport, SalesSummary, DailySales,
+    PopularItemsReport, TopItem,
+    CategorySalesReport, CategorySales,
+)
 
 __all__ = [
     "UserBase", "UserCreate", "UserUpdate", "UserResponse", "Token", "LoginRequest",
@@ -26,4 +31,7 @@ __all__ = [
     "ReservationBase", "ReservationCreate", "ReservationUpdate", "ReservationResponse",
     "InvoiceBase", "InvoiceCreate", "InvoiceUpdate", "InvoiceResponse", "InvoiceWithPayments",
     "PaymentBase", "PaymentCreate", "PaymentResponse",
+    "SalesReport", "SalesSummary", "DailySales",
+    "PopularItemsReport", "TopItem",
+    "CategorySalesReport", "CategorySales",
 ]
