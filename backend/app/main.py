@@ -28,6 +28,7 @@ app.include_router(orders.router, prefix=settings.API_V1_PREFIX, tags=["Orders"]
 app.include_router(reservations.router, prefix=settings.API_V1_PREFIX, tags=["Reservations"])
 app.include_router(invoices.router, prefix=settings.API_V1_PREFIX, tags=["Invoices"])
 app.include_router(payments.router, prefix=settings.API_V1_PREFIX, tags=["Payments"])
+app.include_router(reports.router, prefix=settings.API_V1_PREFIX, tags=["Reports"])
 
 
 @app.get("/")
