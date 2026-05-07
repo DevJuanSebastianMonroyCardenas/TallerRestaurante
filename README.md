@@ -46,6 +46,7 @@ TallerRestaurante/
 │   └── requirements.txt
 ├── docs/
 │   ├── ARQUITECTURA.md   # Diseño técnico
+│   ├── API.md           # Referencia completa de endpoints
 │   └── LINEA_BASE.md    # Documentación línea base
 └── README.md
 ```
