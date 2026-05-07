@@ -11,6 +11,10 @@ from .reservation import (
     TableBase, TableCreate, TableUpdate, TableResponse,
     ReservationBase, ReservationCreate, ReservationUpdate, ReservationResponse,
 )
+from .billing import (
+    InvoiceBase, InvoiceCreate, InvoiceUpdate, InvoiceResponse, InvoiceWithPayments,
+    PaymentBase, PaymentCreate, PaymentResponse,
+)
 
 __all__ = [
     "UserBase", "UserCreate", "UserUpdate", "UserResponse", "Token", "LoginRequest",
@@ -20,4 +24,6 @@ __all__ = [
     "OrderItemBase", "OrderItemCreate", "OrderItemUpdate", "OrderItemResponse",
     "TableBase", "TableCreate", "TableUpdate", "TableResponse",
     "ReservationBase", "ReservationCreate", "ReservationUpdate", "ReservationResponse",
+    "InvoiceBase", "InvoiceCreate", "InvoiceUpdate", "InvoiceResponse", "InvoiceWithPayments",
+    "PaymentBase", "PaymentCreate", "PaymentResponse",
 ]

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
-from app.api.v1 import users, orders, reservations, billing, reports, categories, menu_items, tables
+from app.api.v1 import users, orders, reservations, reports, categories, menu_items, tables, invoices, payments
 
 settings = get_settings()
 
@@ -26,8 +26,8 @@ app.include_router(menu_items.router, prefix=settings.API_V1_PREFIX, tags=["Menu
 app.include_router(tables.router, prefix=settings.API_V1_PREFIX, tags=["Tables"])
 app.include_router(orders.router, prefix=settings.API_V1_PREFIX, tags=["Orders"])
 app.include_router(reservations.router, prefix=settings.API_V1_PREFIX, tags=["Reservations"])
-app.include_router(billing.router, prefix=settings.API_V1_PREFIX, tags=["Billing"])
-app.include_router(reports.router, prefix=settings.API_V1_PREFIX, tags=["Reports"])
+app.include_router(invoices.router, prefix=settings.API_V1_PREFIX, tags=["Invoices"])
+app.include_router(payments.router, prefix=settings.API_V1_PREFIX, tags=["Payments"])
 
 
 @app.get("/")
