@@ -6,6 +6,7 @@ from jose import JWTError, jwt
 from app.core.database import get_db
 from app.core.config import get_settings
 from app.core.security import create_access_token
+from app.core.seed import reset_demo_data
 from app.schemas.v1.user import UserCreate, UserUpdate, UserResponse, LoginRequest, Token
 from app.services.user import UserService
 
@@ -103,3 +104,9 @@ def delete_user(
     if not service.delete_user(user_id):
         raise HTTPException(status_code=404, detail="User not found")
     return None
+
+
+@router.post("/demo/reset")
+def reset_demo(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+    reset_demo_data(db)
+    return {"message": "Demo data reset successfully", "executed_by": current_user}

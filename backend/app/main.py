@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
+from app.core.database import SessionLocal
+from app.core.seed import seed_demo_data
 from app.api.v1 import users, orders, reservations, reports, categories, menu_items, tables, invoices, payments
 
 settings = get_settings()
@@ -14,7 +16,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5175", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,3 +41,12 @@ def root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+
+@app.on_event("startup")
+def startup_seed_data():
+    db = SessionLocal()
+    try:
+        seed_demo_data(db)
+    finally:
+        db.close()
