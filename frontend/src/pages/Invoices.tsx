@@ -18,7 +18,7 @@ export default function Invoices() {
       const [invRes, ordRes] = await Promise.all([invoicesAPI.getAll(params), ordersAPI.getAll({ status_filter: 'delivered' })]);
       setInvoices(invRes.data);
       setOrders(ordRes.data);
-    } catch { console.error(err); }
+    } catch (err) { console.error(err); }
     finally { setLoading(false); }
   };
 
@@ -35,10 +35,10 @@ export default function Invoices() {
 
   const getStatusColor = (status: string) => ({ pending: 'bg-yellow-100 text-yellow-700', paid: 'bg-green-100 text-green-700', cancelled: 'bg-red-100 text-red-700', refunded: 'bg-gray-100 text-gray-700' }[status] || 'bg-gray-100');
 
-  if (loading) return <div className="p-6">Cargando...</div>;
+  if (loading) return <div className="rounded-2xl border border-slate-200 bg-white/80 p-6">Cargando...</div>;
 
   return (
-    <div className="p-6">
+    <div className="space-y-5 rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Facturas</h1>
         <button onClick={() => setShowForm(!showForm)} className="bg-blue-600 text-white px-4 py-2 rounded">+ Nueva Factura</button>

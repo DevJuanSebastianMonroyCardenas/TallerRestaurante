@@ -73,4 +73,8 @@ export const invoicesAPI = {
   getByOrder: (orderId: number) => api.get(`/invoices/by-order/${orderId}`),
 };
 
+export const demoAPI = {
+  reset: () => api.post('/demo/reset'),
+};
+
 export default api;

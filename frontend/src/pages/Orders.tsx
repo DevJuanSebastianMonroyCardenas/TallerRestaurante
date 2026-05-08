@@ -27,7 +27,7 @@ export default function Orders() {
       const [ordersRes, itemsRes] = await Promise.all([ordersAPI.getAll(params), menuItemsAPI.getAll({ available_only: true })]);
       setOrders(ordersRes.data);
       setMenuItems(itemsRes.data);
-    } catch { console.error(err); }
+    } catch (err) { console.error(err); }
     finally { setLoading(false); }
   };
 
@@ -63,10 +63,10 @@ export default function Orders() {
     loadData();
   };
 
-  if (loading) return <div className="p-6">Cargando...</div>;
+  if (loading) return <div className="rounded-2xl border border-slate-200 bg-white/80 p-6">Cargando...</div>;
 
   return (
-    <div className="p-6">
+    <div className="space-y-5 rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Pedidos</h1>
         <button onClick={() => setShowForm(!showForm)} className="bg-blue-600 text-white px-4 py-2 rounded">+ Nuevo Pedido</button>

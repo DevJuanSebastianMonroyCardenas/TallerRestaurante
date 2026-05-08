@@ -54,10 +54,10 @@ export default function Categories() {
     }
   };
 
-  if (loading) return <div className="p-6">Cargando...</div>;
+  if (loading) return <div className="rounded-2xl border border-slate-200 bg-white/80 p-6">Cargando...</div>;
 
   return (
-    <div className="p-6">
+    <div className="space-y-5 rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Categorías</h1>
         <button onClick={() => { setShowForm(true); setEditId(null); setForm({ name: '', description: '' }); }}
