@@ -1,5 +1,9 @@
 # Sistema de Gestión de Restaurante
 
+[![Deployed on Vercel](https://img.shields.io/badge/deployed%20on-Vercel-black?logo=vercel)](https://taller-restaurante.vercel.app)
+![Version](https://img.shields.io/badge/version-1.1.0-teal)
+![License](https://img.shields.io/badge/license-Académica-blue)
+
 Sistema académico REST API con arquitectura modular profesional.
 
 ## Stack Tecnológico
@@ -156,6 +160,36 @@ GET    /api/v1/reports/popular-items - Platillos populares
 - `docs:` Documentación
 - `refactor:` Refactorización
 - `chore:` Mantenimiento
+
+## Despliegue
+
+### Frontend — Vercel
+
+El frontend React/Vite está desplegado en Vercel con configuración automática desde la rama `main`.
+
+**URL de producción:** https://taller-restaurante.vercel.app
+
+| Parámetro Vercel | Valor |
+|-----------------|-------|
+| Framework | Vite |
+| Root Directory | `frontend` |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+| Node Version | 18.x |
+
+**Despliegue manual via CLI:**
+```bash
+npm i -g vercel
+cd frontend
+vercel --prod
+```
+
+**Variables de entorno (producción):**
+```
+VITE_API_URL=https://api.tudominio.com
+```
+
+> **Nota académica:** El backend Django requiere un servidor propio (Railway, Render, etc.) para conectarse al frontend desplegado. Para propósitos de este taller, el frontend funciona en modo demo sin backend activo.
 
 ## Licencia
 Académica - Propósito educativo
