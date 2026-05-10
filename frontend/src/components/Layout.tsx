@@ -53,7 +53,7 @@ export default function Layout() {
           </nav>
         </aside>
 
-        <main className="min-h-screen flex-1 p-4 sm:p-6 lg:p-8">
+        <main className="flex min-h-screen flex-1 flex-col p-4 sm:p-6 lg:p-8">
           <div className="mb-6 flex items-center justify-between rounded-2xl border border-white/60 bg-white/75 px-5 py-4 shadow-sm backdrop-blur">
             <div>
               <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Sistema de gestion</p>
@@ -70,7 +70,22 @@ export default function Layout() {
               Cerrar sesion
             </button>
           </div>
-          <Outlet />
+          <div className="flex-1">
+            <Outlet />
+          </div>
+          <footer className="mt-8 flex items-center justify-between rounded-2xl border border-white/60 bg-white/60 px-5 py-3 backdrop-blur">
+            <p className="text-xs text-slate-400">
+              Restaurante Pro &mdash; Taller Ingeniería de Software
+            </p>
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-semibold text-teal-700">
+                v1.1.0
+              </span>
+              <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">
+                ● production
+              </span>
+            </div>
+          </footer>
         </main>
       </div>
     </div>
