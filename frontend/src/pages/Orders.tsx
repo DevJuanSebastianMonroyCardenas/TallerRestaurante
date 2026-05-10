@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ordersAPI, menuItemsAPI, tablesAPI } from '../api';
+import { ordersAPI, menuItemsAPI } from '../api';
 import type { Order, MenuItem } from '../types';
 
 const STATUS_COLORS: Record<string, string> = {

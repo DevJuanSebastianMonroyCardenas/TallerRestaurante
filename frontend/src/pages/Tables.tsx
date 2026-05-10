@@ -36,7 +36,7 @@ export default function Tables() {
     setShowForm(true);
   };
 
-  const handleDelete = async (id: number) => {
+  const _handleDelete = async (id: number) => {
     if (confirm('¿Eliminar?')) { await tablesAPI.delete(id); loadTables(); }
   };
 
