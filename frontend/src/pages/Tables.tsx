@@ -36,10 +36,6 @@ export default function Tables() {
     setShowForm(true);
   };
 
-  const _handleDelete = async (id: number) => {
-    if (confirm('¿Eliminar?')) { await tablesAPI.delete(id); loadTables(); }
-  };
-
   const toggleAvailability = async (table: Table) => {
     await tablesAPI.update(table.id, { is_available: !table.is_available });
     loadTables();
